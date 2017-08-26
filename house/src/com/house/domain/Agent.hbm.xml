@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<!--  房屋表的映射 -->
+	<class name="com.house.domain.Agent" table="hm_agent">
+		<!-- 主键映射 -->
+		<id name="aid" column="aid" type="long">
+			<generator class="native"/>
+		</id>
+		
+		<!--  普通属性的映射 -->
+		<property name="aimage" column="aimage"/>
+		<property name="aname" column="aname"/>
+		<property name="asex"></property>
+		<property name="acompany" column="acompany"/>
+		<property name="aservice_address" column="aservice_address"/>
+		<property name="aservice_number" column="aservice_number"/>
+		<property name="aservice_time" column="aservice_time"/>
+		<property name="awechat" column="awechat"/>
+		<property name="atelephone" column="telephone"/>
+		
+	
+		<!--  配置(inverse 放弃外键的维护，让一方去关联) --> 
+ 		<set name="house" cascade="save-update,delete">
+			<key column="house_agent_id"></key>
+			<one-to-many class="com.house.domain.House"/>
+		</set>
+		
+	</class>
+	
+</hibernate-mapping>    

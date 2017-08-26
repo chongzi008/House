@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<!-- 用户表的映射 -->
+	<class name="com.house.domain.News" table="hm_news">
+		<!--  主键映射 -->
+		<id name="nid" column="nid" type="long">
+			<generator class="native"></generator>
+		</id>
+		<property name="ntitle"></property>
+		<property name="ncontent"></property>
+		<property name="ntime"></property>
+		
+		<many-to-one name="house" class="com.house.domain.House" column="house_news_id" cascade="save-update" ></many-to-one>
+		<set name="comments" inverse="true" cascade="save-update">
+			<key column="news_comment_id"></key>
+			<one-to-many class="com.house.domain.Comment"/>
+		</set>		
+		
+	</class>
+	
+</hibernate-mapping>    

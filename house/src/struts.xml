@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	
+	<!-- 临时文件保存 -->
+	<constant name="struts.multipart.saveDir" value="/tmp"/>
+	<!-- 设置上传文件的总大小，默认是2M  struts.multipart.maxSize=2097152 -->
+	<constant name="struts.multipart.maxSize" value="20971520"/>
+	
+	<!-- 先配置包结构 -->
+	<package name="crm" extends="struts-default" namespace="/">
+		<action name="house_*" class="com.house.web.action.HouseAction" method="{1}">
+			<result name="save" type="redirectAction">house_findByPage.action</result>
+			<result name="update" type="redirectAction">house_findByPage.action</result>
+			<result name="delete" type="redirectAction">house_findByPage.action</result>
+			<result name="page">/house/house_list.jsp</result>
+	        <result name="editUI">/house/house_edit.jsp</result>
+		</action>
+		
+		<action name="agent_*" class="com.house.web.action.AgentAction" method="{1}">
+			<result name="save" type="redirectAction">agent_findByPage.action</result>
+			<result name="update" type="redirectAction">agent_findByPage.action</result>
+			<result name="delete" type="redirectAction">agent_findByPage.action</result>
+			<result name="page">/agent/agent_list.jsp</result>
+	        <result name="input">/agent/agent_save.jsp</result>
+	        <result name="editUI">/agent/agent_edit.jsp</result>
+		</action>
+		
+		<action name="comment_*" class="com.house.web.action.CommentAction" method="{1}">
+		   <result name="addUI">/comment/comment_save.jsp</result>
+			<result name="save" type="chain">comment_findByPage</result>
+			<result name="page">/comment/comment_list.jsp</result>
+			<result name="delete" type="redirectAction">comment_findByPage?hid=${hid}</result>
+		</action>
+		
+		<action name="news_*" class="com.house.web.action.NewsAction" method="{1}">
+		    <!-- 返回添加视图 -->
+		  		<result name="addUI">/news/news_save.jsp</result>
+		  	<!-- 返回当前房子下的所有新闻操作逻辑 -->
+				<result name="save" type="chain">news_findByPage</result>
+			<!-- 返回当前房子下的所有新闻的视图 -->
+				<result name="page">/news/news_list.jsp</result>
+			<!-- 删除后返回新闻视图-->
+				<result name="deleteByOne" type="chain">news_findByPage</result>
+			<!-- 返回所有新闻的视图-->
+				<result name="page_list">/news/news_list_all.jsp</result>
+			<!-- 删除后返回新闻视图-->
+				<result name="deleteByAll" type="redirectAction">news_findByPageAll</result>
+				<!-- 到新闻编辑页面 -->
+				<result name="editUI">/news/news_edit.jsp</result>
+				
+				<!-- 更新成功返回新闻列表 -->
+				<result name="update" type="chain">news_findByPage</result>
+		</action>
+		
+		<action name="user_*" class="com.house.web.action.UserAction" method="{1}">
+		    <!--添加用户成功，到用户列表action -->
+		  		<result name="save" type="redirectAction">user_findByPage.action</result>
+		  <!-- 用户列表 -->
+		  <result name="page">/user/user_list.jsp</result>
+		  <!-- 更新用户视图 -->
+		  <result name="editUI">/user/user_edit.jsp</result>
+		  
+		  <!-- 更新完成，返回列表 -->
+		  <result name="update" type="redirectAction">user_findByPage.action</result>
+		  
+		  <!-- 删除完成，返回列表 -->
+		  		  <result name="delete" type="redirectAction">user_findByPage.action</result>
+		  
+		  <!-- 注册成功,到登陆页面 -->
+		  <result name="register">/user/login.jsp</result>
+		  
+		  <!-- 登陆成功，到主页面 -->
+		  <result name="login">/user/index.jsp</result>
+		  
+		</action>
+		<action name="newhouse_near_*" class="com.house.web.action.DataRequestAction" method="{1}">	</action>
+	</package>
+</struts>

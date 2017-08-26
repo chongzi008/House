@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+
+	<!--  房屋表的映射 -->
+	<class name="com.house.domain.House" table="hm_house">
+		<!-- 主键映射 -->
+		<id name="hid" column="hid" type="long">
+			<generator class="native"/>
+		</id>
+		
+		<!--  普通属性的映射 -->
+		<property name="himage" column="himage"/>
+		<property name="hname" column="hname"/>
+		<property name="hprice" column="hprice"/>
+		<property name="hshape" column="hshape"></property>
+		<property name="hsaletime" column="hsaletime"/>
+		<property name="hintroduction" column="hintroduction"/>
+		<property name="htype" column="htype"/>
+		<property name="haddress" column="haddress"/>
+		<property name="subt1"></property>
+		<property name="subt2"></property>
+		<property name="harea"/>
+		
+		<!-- 配置该房子的经纪人 -->
+		<many-to-one name="agent" lazy="false" class="com.house.domain.Agent" column="house_agent_id" cascade="save-update"></many-to-one>
+
+		<!--  配置(inverse 放弃外键的维护，让多方去关联) -->
+		<!-- 评论的配置 -->
+		<set name="comments" inverse="true" cascade="save-update">
+			<key column="house_comment_id"></key>
+			<one-to-many class="com.house.domain.Comment"/>
+		</set>
+		<!-- 新闻的评论 -->
+		<set name="news" inverse="true" cascade="delete">
+			<key column="house_news_id"></key>
+			<one-to-many class="com.house.domain.News" />
+		</set>
+	</class>
+	
+</hibernate-mapping>    

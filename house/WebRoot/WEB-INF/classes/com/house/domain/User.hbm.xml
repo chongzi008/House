@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<!-- 用户表的映射 -->
+	<class name="com.house.domain.User" table="hm_user">
+		<!--  主键映射 -->
+		<id name="uid" column="uid" type="long">
+			<generator class="native"></generator>
+		</id>
+		<!-- 普通属性映射 -->
+		<property name="uimage"></property>
+		<property name="username"></property>
+		<property name="upassword"></property>
+		<property name="ustar"></property>
+		<property name="uscore"></property>
+		<property name="utelephone"></property>
+		<property name="uwechat"></property>
+	
+		<set name="comments" inverse="true" cascade="save-update">
+			<key column="user_comment_id"></key>
+			<one-to-many class="com.house.domain.Comment"/>
+		</set>		
+		
+	</class>
+	
+</hibernate-mapping>    

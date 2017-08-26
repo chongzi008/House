@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<!-- 评论表的映射 -->
+	<class name="com.house.domain.Comment" table="hm_comment">
+		<!--  主键映射 -->
+		<id name="cid" column="cid" type="long">
+			<generator class="native"></generator>
+		</id>
+		<!-- 普通属性映射 -->
+		<property name="cimage"></property>
+		<property name="content"></property>
+		<property name="ctime" ></property>
+		
+		<many-to-one name="user" class="com.house.domain.User" column="user_comment_id" cascade="save-update"></many-to-one>			
+		<many-to-one name="house" class="com.house.domain.House" column="house_comment_id" cascade="save-update"></many-to-one>
+		<many-to-one name="news" class="com.house.domain.News" column="news_comment_id" cascade="save-update"></many-to-one>
+
+	</class>
+	
+</hibernate-mapping>    
